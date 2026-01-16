@@ -76,7 +76,7 @@ To get started:
 - Get a local copy of the repository and move into the project directory:
 
 ```
-git clone https://github.com/<your-username>/xssl.git
+git clone https://github.com/kiralg/xssl/xssl.git
 cd xssl
 ```
 

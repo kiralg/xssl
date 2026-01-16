@@ -1,0 +1,116 @@
+stages:
+  - "Lint"
+  - "Test"
+  - "Build"
+  - "Publish"
+
+variables:
+  # Add extra index URLs depending on the packages you need
+  PIP_EXTRA_INDEX_URL: >- 
+    https://everyone:gldt-EqoHpqDeDN_EWu8ntk7f@gitlab.cc-asp.fraunhofer.de/api/v4/projects/64882/packages/pypi/simple
+    https://everyone:2FFWj6EsHr8_aSd2gDTa@gitlab.cc-asp.fraunhofer.de/api/v4/projects/22713/packages/pypi/simple
+
+workflow:
+  rules:
+    - if: "$CI_COMMIT_BRANCH"
+    - if: "$CI_COMMIT_TAG"
+
+default:
+  # Note: you might need to change this image for your specific Python version.
+  image: "ghcr.io/osgeo/gdal:ubuntu-full-3.10.2"
+  tags:
+    - "intranet"
+
+ruff:
+  stage: "Lint"
+  rules:
+    - changes:
+        - "src/**/*"
+        - "support/**/*"
+        - "pyproject.toml"
+        - ".gitlab-ci.yml"
+  cache: &py-cache
+    key: "$CI_COMMIT_REF_SLUG-py"
+    when: "always"
+    policy: "pull-push"
+    paths:
+      - "/tmp/.cache"
+  allow_failure: true
+  before_script:
+    - "apt update && apt install -y python3-pip"
+    - "python3 -m pip install --break-system-packages --cache /tmp/cache -r support/requirements-dev.txt"
+  script:
+    - "python3 -m ruff --version"
+    - "python3 -m ruff check --output-format=full src/"
+    - "python3 -m ruff format --check src/"
+
+mypy:
+  stage: "Lint"
+  rules:
+    - changes:
+        - "src/**/*"
+        - "support/**/*"
+        - "pyproject.toml"
+        - ".gitlab-ci.yml"
+  allow_failure: true
+  before_script:
+    - "apt update && apt install -y python3-pip"
+    - "python3 -m pip install --break-system-packages --cache /tmp/cache -r support/requirements.txt"
+    - "python3 -m pip install --break-system-packages --cache /tmp/cache -r support/requirements-dev.txt"
+  script:
+    - "python3 -m mypy --version"
+    - "python3 -m mypy --junit-xml mypy.xml src/"
+  cache: *py-cache
+  artifacts:
+    when: "always"
+    reports:
+      junit: "mypy.xml"
+    expire_in: "1 week"
+
+build:
+  stage: "Build"
+  before_script:
+    - "apt update && apt install -y python3-pip"
+    - "python3 -m pip install --break-system-packages --cache /tmp/cache build"
+  needs:
+    - job: "ruff"
+      optional: true
+    - job: "mypy"
+      optional: true
+  script:
+    - "[[ -z \"$CI_COMMIT_TAG\" ]] && printf 'dev%s' $CI_PIPELINE_IID | tee -a support/VERSION"
+    - "[[ -n \"$CI_COMMIT_TAG\" ]] && echo $CI_COMMIT_TAG | tee support/VERSION"
+    - "python3 -m build -o dist/"
+  cache: *py-cache
+  artifacts:
+    name: "wheel"
+    when: "on_success"
+    paths:
+      - "dist/**"
+    expire_in: "1 month"
+
+# For advanced users: You can publish your package to our internal repository. To do that, you need to create
+# (or have somebody else create) a new deploy token on the PyPI registry with write access. Once done, navigate to
+# the CI/CD settings of your project and add three new variables:
+#   1. UPLOAD_INDEX_ID - The ID of the project containing the PyPI repository to upload. For EP14, that is: 64882
+#   2. UPLOAD_INDEX_USER - The username chosen when creating the deploy token
+#   3. UPLOAD_INDEX_TOKEN - The deploy token itself
+# Then uncomment the following lines and push to the repo:
+
+# publish:
+#   stage: "Publish"
+#   image: "docker.io/python:3.9-slim"
+#   variables:
+#     UPLOAD_INDEX_ROOT: "${CI_SERVER_HOST}/api/v4/projects/${UPLOAD_INDEX_ID}/packages/pypi"
+#     UPLOAD_INDEX_URL: "https://${UPLOAD_INDEX_USER}:${UPLOAD_INDEX_TOKEN}@${UPLOAD_INDEX_ROOT}"
+#   dependencies:
+#    - "build"
+#   needs:
+#     - "build"
+#   when: "on_success"
+#   before_script:
+#     - "apt update && apt install -y python3-pip"
+#     - "python3 -m pip install --break-system-packages --cache /tmp/cache twine"
+#   cache: *py-cache
+#   script:
+#     - "python3 -m twine upload --repository-url ${UPLOAD_INDEX_URL} dist/*"

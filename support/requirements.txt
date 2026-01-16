@@ -1,0 +1,9 @@
+# Python_Version: 3.9
+# packages
+pandas==2.2.3
+numpy==2.0.2
+matplotlib==3.9.4
+scipy==1.13.1
+tqdm==4.67.1
+seaborn==0.13.2
+scipy==1.13.1

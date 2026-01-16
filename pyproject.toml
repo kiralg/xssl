@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools~=78.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xssl"
+requires-python = ">=3.9"
+description = ""
+authors = [
+    { name = "Kira Gramitzky", email = "kira.gramitzky@iee.fraunhofer.de"},
+]
+maintainers = [
+    { name = "Kira Gramitzky", email = "kira.gramitzky@iee.fraunhofer.de"},
+]
+readme = "readme.md"
+dynamic = ["version", "dependencies", "optional-dependencies"]
+keywords = []
+classifiers = [] # See https://pypi.org/classifiers/
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+# Important: If you add more than one package containing data files, add it as a new line below this one.
+"xssl" = ["*"]
+
+[tool.setuptools.dynamic]
+version = {file = "support/VERSION"}
+dependencies = {file = "support/requirements.txt"}
+
+[tool.setuptools.dynamic.optional-dependencies]
+dev = {file = "support/requirements-dev.txt"}
+
+[tool.mypy]
+python_version = "3.10"
+plugins = []
+pretty = true
+strict = true
+cache_dir = ".cache/mypy"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+cache-dir = ".cache/ruff"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "C901", # "`...` is too complex (15 > 10)"
+    "FIX002", # "Line contains TODO, consider resolving the issue"
+    "PLR0913",  # "Too many arguments to function call"
+    "PLR0912",  # "Too many branches"
+    "PLR0915",  # "Too many statements"
+    "FA",  # flake8-future-annotations
+    "D", # Documentation stuffs
+    "ANN", # "Missing type annotation for `self`
+    "COM812",
+    "ISC001",
+]
+
+pydocstyle.convention = "google"
+isort.force-single-line = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+[tool.pytest.ini_options]
+testpaths = "tests/"
+cache_dir = ".cache/pytest"

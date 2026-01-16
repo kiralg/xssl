@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+/doc/_build/
+.coverage
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python Eggs
+*.egg-info
+
+# sqlite database files
+*.db
+
+# idea/pycharm
+/.idea
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# hypothesis test files
+.hypothesis
+
+# log files
+*.log
+log.txt
+
+.vscode

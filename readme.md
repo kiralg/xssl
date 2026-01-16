@@ -107,11 +107,13 @@ python scripts/example_xssl.py
 
 > ⚠️ **Attention**
 >
-> The default configuration uses `cpu=6` for the analysis.
-> You may need to adapt this value depending on your available hardware.
-> Higher CPU counts can improve performance.
->
-> See `xssl.wrapper_parallel_distance_analysis` for configuration details.
+> The default configuration uses `cpu=6` for the analysis. Depending on your hardware, you may need to adjust this value. 
+> Using more CPU cores can improve performance.
+> 
+> To change the number of CPUs used, modify the `cpu` parameter in the `wrapper_parallel_distance_analysis`
+> function call in the `example_xssl` script.  
+> For more configuration options, see `xssl.wrapper_parallel_distance_analysis`.
+
 
 ---
 

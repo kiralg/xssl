@@ -330,7 +330,7 @@ def wrapper_parallel_distance_analysis(data_cnr:pd.DataFrame, data_bound:pd.Data
             pandas.DataFrame: Combined results of the CNR-over-range analysis for all processed timestamps.
         """
 
-    # Extract unique timestamps to define independent scans
+    # Extract unique timestamps to define independent scans (or sweep_index)
     unique_timestamps = data_cnr['timestamp'].unique()
     print(f'Processing timestamps: {unique_timestamps}')
 

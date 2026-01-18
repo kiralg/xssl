@@ -590,11 +590,8 @@ def plot_ssl_results(ssl_results: dict, ssl_data: pd.DataFrame, ssl_data_untilte
 
         # Save figure
         plotname = f'/SSL_results_{time_formatted}_correction_dist_{distance_correct}.png'
-        output_filename = output_path + plotname
+        output_filename = output_path / plotname
         plt.savefig(output_filename, dpi=300, bbox_inches='tight')
-
-        # Display plot
-        plt.show()
 
         ################################################################################################################
         # PLOT 2: Corrected elevation angle data with the theoretical elevation curve
@@ -647,11 +644,8 @@ def plot_ssl_results(ssl_results: dict, ssl_data: pd.DataFrame, ssl_data_untilte
         fig.tight_layout()
 
         # Save figure
-        plotname2 = f'/SSL_results_modelled_parameters_{time_formatted}_dist_correct_{distance_correct}.png'
-        output_filename = output_path + plotname2
+        plotname2 = f'/SSL_results_modelled_parameters_{time_formatted}.png'
+        output_filename = output_path / plotname2
         plt.savefig(output_filename, dpi=300, bbox_inches='tight')
-
-        # Display plot
-        plt.show()
 
 

@@ -59,7 +59,8 @@ if __name__ =='__main__':
 
     # Save results to a csv file
     df = pd.DataFrame([ssl_result])
-    df.to_csv(folder_out +
-              f"/SSL_results_"+df.loc[0,'Timestamp'].strftime('%Y_%m_%d_%H_%M_%S')+f"_cor{dist_correct}.csv",
+    filename = f"SSL_results_" + df.loc[0, 'Timestamp'].strftime('%Y_%m_%d_%H_%M_%S') + f"_cor{dist_correct}.csv"
+    output_filename = folder_out / filename
+    df.to_csv(output_filename,
               sep=";",
               index=False)

@@ -262,15 +262,17 @@ Example plots:
 
 <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
 
-  <figure style="width: 350px;">
-    <img src="images/Elevation_Distance_Azimuth_Correlation_uncorrected_2023_11_19_22_22_neu.png" width="100%">
+  <figure style="width: 250px;">
+    <img src="images/Elevation_Distance_Azimuth_Correlation_uncorrected_2023_11_19_22_22_neu.png" 
+         style="width: 100%; max-width: 250px; height: auto;">
     <figcaption style="text-align: center;">
       <em>Dependence of elevation, range (distance to water surface) and azimuth values on SSL data</em>
     </figcaption>
   </figure>
 
-  <figure style="width: 350px;">
-    <img src="images/Elevation_Distance_Azimuth_Correlation_corrected_2023_11_19_22_22_neu.png" width="100%">
+  <figure style="width: 250px;">
+    <img src="images/Elevation_Distance_Azimuth_Correlation_corrected_2023_11_19_22_22_neu.png" 
+         style="width: 100%; max-width: 250px; height: auto;">
     <figcaption style="text-align: center;">
       <em>Example of tilt-corrected elevation data from SSL across the range depending on azimuth angle and the model
 (red line) with pitch, roll, elevation offset, lidar height and RMSE</em>

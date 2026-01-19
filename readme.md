@@ -41,9 +41,9 @@ The essential requirements are:
 
 <figure>
   <img src="images/Lidar_Variablen_Definition_neu.png" width="350">
-  <figcaption style="font-style: italic;">
-    Coordinate system of a scanning lidar
-  </figcaption>
+  <p style="text-align: center; font-size: 10px;"><em>
+    Figure: Coordinate system of a scanning lidar
+  </em></p>
 </figure>
 
 All computations in this project are performed in the following coordinate system:
@@ -203,13 +203,12 @@ useful for:
 
 **Example plot**
 
-<figure style="width: 350px;">
+<figure>
   <img src="images/CNR_over_Range_Azim_15_Elev_-0.28.png" width="350">
-  <figcaption style="text-align: center; font-style: italic;">
-    CNR over range data for a single time step. The red line marks the distance where the laser hits the water surface.
-  </figcaption>
+  <p style="text-align: center;"><em>
+    Figure: CNR over range data for a single time step. The red line marks the distance where the laser hits the water surface.
+  </em></p>
 </figure>
-
 
 
 ### Step 2: Extended SSL Optimization
@@ -260,26 +259,19 @@ plot_ssl_results
 ```
 Example plots:
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+<table>
+<tr>
+  <td>
+    <img src="images/Elevation_Distance_Azimuth_Correlation_uncorrected_2023_11_19_22_22_neu.png" width="250">
+    <p><em>Figure: Dependence of elevation, range and azimuth values on SSL data</em></p>
+  </td>
+  <td>
+    <img src="images/Elevation_Distance_Azimuth_Correlation_corrected_2023_11_19_22_22_neu.png" width="250">
+    <p><em>Figure: Example of tilt-corrected elevation data from SSL across the range depending on azimuth angle</em></p>
+  </td>
+</tr>
+</table>
 
-  <figure style="width: 250px;">
-    <img src="images/Elevation_Distance_Azimuth_Correlation_uncorrected_2023_11_19_22_22_neu.png" 
-         style="width: 100%; max-width: 250px; height: auto;">
-    <figcaption style="text-align: center;">
-      <em>Dependence of elevation, range (distance to water surface) and azimuth values on SSL data</em>
-    </figcaption>
-  </figure>
-
-  <figure style="width: 250px;">
-    <img src="images/Elevation_Distance_Azimuth_Correlation_corrected_2023_11_19_22_22_neu.png" 
-         style="width: 100%; max-width: 250px; height: auto;">
-    <figcaption style="text-align: center;">
-      <em>Example of tilt-corrected elevation data from SSL across the range depending on azimuth angle and the model
-(red line) with pitch, roll, elevation offset, lidar height and RMSE</em>
-    </figcaption>
-  </figure>
-
-</div>
 
 
 

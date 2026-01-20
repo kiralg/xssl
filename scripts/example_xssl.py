@@ -14,8 +14,8 @@ folder_out = PROJECT_DIR / "output"
 folder_out.mkdir(parents=True, exist_ok=True)
 
 # Files
-file_bound = folder_data / "bounds_cnr_over_range_rhi.csv"
-file_cnr = folder_data / "sweepindex_1.csv"
+file_bound = folder_data / "bounds_cnr_over_range.csv"
+file_cnr = folder_data / "data_cnr_over_range_rhi1.csv"
 
 # Filters for SSL method
 dist_start = 500
